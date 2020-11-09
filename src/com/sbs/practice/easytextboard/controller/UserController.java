@@ -19,8 +19,7 @@ public class UserController {
 
 		if (cmd.equals("user join")) {
 			join(cmd);
-		}
-		else if (cmd.equals("user login")) {
+		} else if (cmd.equals("user login")) {
 			login(cmd);
 		}
 
@@ -32,9 +31,9 @@ public class UserController {
 		String accountPw;
 		int maxFailCount = 3;
 		int failCount = 0;
-		
+
 		while (true) {
-			
+
 			if (failCount >= maxFailCount) {
 				System.out.println("로그인을 취소합니다.");
 				return;
@@ -42,24 +41,46 @@ public class UserController {
 
 			System.out.printf("아이디 : ");
 			accountName = sc.nextLine().trim();
-
 			User user = userService.getUserByAccNm(accountName);
-			
+
 			if (accountName.length() == 0) {
 				System.out.printf("올바른 아이디를 입력하세요.%n", accountName);
 				failCount++;
 				continue;
-			}
-			if (user == null) {
+			} 
+			else if (user == null) {
 				System.out.printf("%s는 존재하지 않는 아이디 입니다.%n", accountName);
 				failCount++;
 				continue;
 			} 
-			failCount = 0;
-			break;
+			else if (user != null) {
+				failCount = 0;
+				while (true) {
+					if (failCount >= maxFailCount) {
+						System.out.println("회원가입을 취소합니다.");
+						return;
+					}
+
+					System.out.printf("비밀번호 : ");
+					accountPw = sc.nextLine().trim();
+
+					if (accountPw.length() == 0) {
+						System.out.println("올바른 비밀번호를 입력하세요.");
+						failCount++;
+						continue;
+					}
+					else if (accountPw.equals(user.accountPw) == false) {
+						System.out.println("비밀번호가 일치하지 않습니다.");
+						failCount++;
+						continue;
+					}
+					break;
+				}
+				break;
+			}
+
 		}
-		
-		
+		System.out.printf("로그인 성공! %s님 환영합니다!%n", accountName);
 	}
 
 	private void join(String cmd) {
