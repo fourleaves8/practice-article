@@ -7,15 +7,15 @@ import com.sbs.practice.easytextboard.dto.User;
 public class UserService {
 
 	private UserDao userDao;
-	
-	public UserService () {
+
+	public UserService() {
 		userDao = Container.userDao;
-		
+
 	}
 
 	public int join(String accountName, String accountPw, String name) {
 		return userDao.add(accountName, accountPw, name);
-		
+
 	}
 
 	public boolean isValidAccNm(String accountName) {

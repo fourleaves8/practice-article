@@ -10,11 +10,13 @@ public class Container {
 	public static Scanner sc;
 	public static UserDao userDao;
 	public static UserService userService;
+	public static Session session;
 
 	static {
 		sc = new Scanner(System.in);
 		userDao = new UserDao();
 		userService = new UserService();
+		session = new Session();
 
 	}
 

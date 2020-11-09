@@ -3,16 +3,19 @@ package com.sbs.practice.easytextboard.controller;
 import java.util.Scanner;
 
 import com.sbs.practice.easytextboard.container.Container;
+import com.sbs.practice.easytextboard.container.Session;
 import com.sbs.practice.easytextboard.dto.User;
 import com.sbs.practice.easytextboard.service.UserService;
 
 public class UserController {
 	private Scanner sc;
 	private UserService userService;
+	private Session session;
 
 	public UserController() {
 		sc = Container.sc;
 		userService = Container.userService;
+		session = Container.session;
 	}
 
 	public void doCmd(String cmd) {
@@ -21,7 +24,19 @@ public class UserController {
 			join(cmd);
 		} else if (cmd.equals("user login")) {
 			login(cmd);
+		} else if (cmd.equals("user logout")) {
+			logout(cmd);
 		}
+
+	}
+
+	private void logout(String cmd) {
+		if (session.isLogined() == false) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
+		session.logout();
+		System.out.println("로그아웃 되었습니다.");
 
 	}
 
@@ -33,7 +48,10 @@ public class UserController {
 		int failCount = 0;
 
 		while (true) {
-
+			if (session.isLogined() == true) {
+				System.out.println("이미 로그인 되어있습니다.");
+				return;
+			}
 			if (failCount >= maxFailCount) {
 				System.out.println("로그인을 취소합니다.");
 				return;
@@ -47,13 +65,11 @@ public class UserController {
 				System.out.printf("올바른 아이디를 입력하세요.%n", accountName);
 				failCount++;
 				continue;
-			} 
-			else if (user == null) {
-				System.out.printf("%s는 존재하지 않는 아이디 입니다.%n", accountName);
+			} else if (user == null) {
+				System.out.printf("%s(은)는 존재하지 않는 아이디 입니다.%n", accountName);
 				failCount++;
 				continue;
-			} 
-			else if (user != null) {
+			} else if (user != null) {
 				failCount = 0;
 				while (true) {
 					if (failCount >= maxFailCount) {
@@ -68,18 +84,19 @@ public class UserController {
 						System.out.println("올바른 비밀번호를 입력하세요.");
 						failCount++;
 						continue;
-					}
-					else if (accountPw.equals(user.accountPw) == false) {
+					} else if (accountPw.equals(user.accountPw) == false) {
 						System.out.println("비밀번호가 일치하지 않습니다.");
 						failCount++;
 						continue;
 					}
+					session.login(user.userId);
 					break;
 				}
 				break;
 			}
 
 		}
+
 		System.out.printf("로그인 성공! %s님 환영합니다!%n", accountName);
 	}
 
