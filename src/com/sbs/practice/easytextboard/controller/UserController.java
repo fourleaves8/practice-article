@@ -3,6 +3,7 @@ package com.sbs.practice.easytextboard.controller;
 import java.util.Scanner;
 
 import com.sbs.practice.easytextboard.container.Container;
+import com.sbs.practice.easytextboard.dto.User;
 import com.sbs.practice.easytextboard.service.UserService;
 
 public class UserController {
@@ -19,11 +20,50 @@ public class UserController {
 		if (cmd.equals("user join")) {
 			join(cmd);
 		}
+		else if (cmd.equals("user login")) {
+			login(cmd);
+		}
 
 	}
 
+	private void login(String cmd) {
+		System.out.println("== 회원 로그인 ==");
+		String accountName;
+		String accountPw;
+		int maxFailCount = 3;
+		int failCount = 0;
+		
+		while (true) {
+			
+			if (failCount >= maxFailCount) {
+				System.out.println("로그인을 취소합니다.");
+				return;
+			}
+
+			System.out.printf("아이디 : ");
+			accountName = sc.nextLine().trim();
+
+			User user = userService.getUserByAccNm(accountName);
+			
+			if (accountName.length() == 0) {
+				System.out.printf("올바른 아이디를 입력하세요.%n", accountName);
+				failCount++;
+				continue;
+			}
+			if (user == null) {
+				System.out.printf("%s는 존재하지 않는 아이디 입니다.%n", accountName);
+				failCount++;
+				continue;
+			} 
+			failCount = 0;
+			break;
+		}
+		
+		
+	}
+
 	private void join(String cmd) {
-		System.out.println("== 회원가입 ==");
+		System.out.println("== 회원 가입 ==");
 		String accountName;
 		String accountPw;
 		String name;
@@ -40,8 +80,8 @@ public class UserController {
 			System.out.printf("사용하실 아이디 : ");
 			accountName = sc.nextLine().trim();
 
-			boolean isValidAccountName = userService.isValidAccountName(accountName);
-			if (isValidAccountName == false) {
+			boolean isValidAccNm = userService.isValidAccNm(accountName);
+			if (isValidAccNm == false) {
 				System.out.printf("%s는 이미 사용중인 아이디 입니다.%n", accountName);
 				failCount++;
 				continue;

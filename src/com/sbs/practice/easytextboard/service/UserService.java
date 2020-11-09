@@ -18,12 +18,16 @@ public class UserService {
 		
 	}
 
-	public boolean isValidAccountName(String accountName) {
-		User user = userDao.getValidAccountName(accountName);
+	public boolean isValidAccNm(String accountName) {
+		User user = userDao.getUserByAccNm(accountName);
 		if (user != null) {
 			return false;
 		}
 		return true;
+	}
+
+	public User getUserByAccNm(String accountName) {
+		return userDao.getUserByAccNm(accountName);
 	}
 
 }

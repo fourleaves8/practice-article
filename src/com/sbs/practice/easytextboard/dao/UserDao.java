@@ -28,7 +28,7 @@ public class UserDao {
 
 	}
 
-	public User getValidAccountName(String accountName) {
+	public User getUserByAccNm(String accountName) {
 		for (User user : users) {
 			if (user.accountName.equals(accountName)) {
 				return user;
