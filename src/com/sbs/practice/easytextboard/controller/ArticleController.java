@@ -39,7 +39,8 @@ public class ArticleController {
 
 		System.out.println("번호 / 작성자 / 제목");
 		for (Article article : articles) {
-			System.out.printf("%d / %s / %s%n", article.articleId, article.userId, article.title);
+			User user = userService.getUserByUserId(article.userId);
+			System.out.printf("%d / %s / %s%n", article.articleId, user.name, article.title);
 		}
 	}
 
