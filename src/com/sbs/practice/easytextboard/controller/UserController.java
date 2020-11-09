@@ -26,8 +26,24 @@ public class UserController {
 			login(cmd);
 		} else if (cmd.equals("user logout")) {
 			logout(cmd);
+		} else if (cmd.equals("user whoami")) {
+			whoami(cmd);
 		}
 
+	}
+
+	private void whoami(String cmd) {
+		if (session.isLogined() == false) {
+			System.out.println("로그인 후 이용해주세요.");
+			return;
+		}
+		int loginedUserId = session.loginedUserId;
+		User loginedUser = userService.getUserByUserId(loginedUserId);
+		
+		System.out.println("== 로그인된 사용자 정보 ==");
+		System.out.printf("아이디 : %s%n", loginedUser.accountName);
+		System.out.printf("이름 : %s%n", loginedUser.name);
+		
 	}
 
 	private void logout(String cmd) {

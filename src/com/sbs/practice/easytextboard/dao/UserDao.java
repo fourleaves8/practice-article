@@ -37,4 +37,13 @@ public class UserDao {
 		return null;
 	}
 
+	public User getUserByUserId(int loginedUserId) {
+		for (User user : users) {
+			if (user.userId == loginedUserId) {
+				return user;
+			}
+		}
+		return null;
+	}
+
 }

@@ -30,4 +30,8 @@ public class UserService {
 		return userDao.getUserByAccNm(accountName);
 	}
 
+	public User getUserByUserId(int loginedUserId) {
+		return userDao.getUserByUserId(loginedUserId);
+	}
+
 }
