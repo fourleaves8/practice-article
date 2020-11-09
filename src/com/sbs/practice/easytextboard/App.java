@@ -16,11 +16,11 @@ public class App {
 		Scanner sc = Container.sc;
 
 		while (true) {
-			System.out.print("¸í·É¾î) ");
+			System.out.print("ëª…ë ¹ì–´) ");
 			String cmd = sc.nextLine();
 
 			if (cmd.equals("system exit")) {
-				System.out.println("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+				System.out.println("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 				break;
 			} else if (cmd.startsWith("user ")) {
 				userController.doCmd(cmd);

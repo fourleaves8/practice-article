@@ -23,8 +23,8 @@ public class ArticleController {
 		}
 
 		else if (cmd.equals("article list")) {
-			System.out.println("== °Ô½Ã¹° ¸®½ºÆ® ==");
-			System.out.printf("¹øÈ£ / Á¦¸ñ");
+			System.out.println("== ê²Œì‹œë¬¼ ë¦¬ìŠ¤íŠ¸ ==");
+			System.out.printf("ë²ˆí˜¸ / ì œëª©");
 
 		}
 
@@ -32,17 +32,17 @@ public class ArticleController {
 
 	private void articleAdd(String cmd) {
 		if (session.isLogined() == false) {
-			System.out.println("·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØÁÖ¼¼¿ä.");
+			System.out.println("ë¡œê·¸ì¸ í›„ ì´ìš©í•˜ì„¸ìš”.");
 			return;
 		}
-		System.out.println("== °Ô½Ã¹° µî·Ï ==");
-		System.out.printf("Á¦¸ñ : ");
+		System.out.println("== ê²Œì‹œë¬¼ ë“±ë¡ ==");
+		System.out.printf("ì œëª© : ");
 		String title = sc.nextLine();
-		System.out.printf("³»¿ë : ");
+		System.out.printf("ë‚´ìš© : ");
 		String body = sc.nextLine();
 
 		int articleId = articleAdd(title, body);
-		System.out.printf("%d¹ø °Ô½Ã¹°ÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.%n", articleId);
+		System.out.printf("%dë²ˆ ê²Œì‹œë¬¼ì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.%n", articleId);
 
 	}
 

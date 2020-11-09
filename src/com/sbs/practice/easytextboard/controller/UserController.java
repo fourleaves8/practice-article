@@ -34,30 +34,30 @@ public class UserController {
 
 	private void whoami(String cmd) {
 		if (session.isLogined() == false) {
-			System.out.println("·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØÁÖ¼¼¿ä.");
+			System.out.println("ë¡œê·¸ì¸ í›„ ì´ìš©í•˜ì„¸ìš”.");
 			return;
 		}
 		int loginedUserId = session.loginedUserId;
 		User loginedUser = userService.getUserByUserId(loginedUserId);
 		
-		System.out.println("== ·Î±×ÀÎµÈ »ç¿ëÀÚ Á¤º¸ ==");
-		System.out.printf("¾ÆÀÌµğ : %s%n", loginedUser.accountName);
-		System.out.printf("ÀÌ¸§ : %s%n", loginedUser.name);
+		System.out.println("== ë¡œê·¸ì¸ëœ ì‚¬ìš©ì ì •ë³´ ==");
+		System.out.printf("ì•„ì´ë”” : %s%n", loginedUser.accountName);
+		System.out.printf("ì´ë¦„ : %s%n", loginedUser.name);
 		
 	}
 
 	private void logout(String cmd) {
 		if (session.isLogined() == false) {
-			System.out.println("·Î±×ÀÎ ÈÄ ÀÌ¿ëÇØÁÖ¼¼¿ä.");
+			System.out.println("ë¡œê·¸ì¸ í›„ ì´ìš©í•˜ì„¸ìš”.");
 			return;
 		}
 		session.logout();
-		System.out.println("·Î±×¾Æ¿ô µÇ¾ú½À´Ï´Ù.");
+		System.out.println("ë¡œê·¸ì•„ì›ƒ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 
 	}
 
 	private void login(String cmd) {
-		System.out.println("== È¸¿ø ·Î±×ÀÎ ==");
+		System.out.println("== ì‚¬ìš©ì ë¡œê·¸ì¸ ==");
 		String accountName;
 		String accountPw;
 		int maxFailCount = 3;
@@ -65,43 +65,43 @@ public class UserController {
 
 		while (true) {
 			if (session.isLogined() == true) {
-				System.out.println("ÀÌ¹Ì ·Î±×ÀÎ µÇ¾îÀÖ½À´Ï´Ù.");
+				System.out.println("ì´ë¯¸ ë¡œê·¸ì¸ ë˜ì–´ìˆìŠµë‹ˆë‹¤.");
 				return;
 			}
 			if (failCount >= maxFailCount) {
-				System.out.println("·Î±×ÀÎÀ» Ãë¼ÒÇÕ´Ï´Ù.");
+				System.out.println("ë¡œê·¸ì¸ì„ ì·¨ì†Œí•©ë‹ˆë‹¤.");
 				return;
 			}
 
-			System.out.printf("¾ÆÀÌµğ : ");
+			System.out.printf("ì•„ì´ë”” : ");
 			accountName = sc.nextLine().trim();
 			User user = userService.getUserByAccNm(accountName);
 
 			if (accountName.length() == 0) {
-				System.out.printf("¿Ã¹Ù¸¥ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.%n", accountName);
+				System.out.printf("ì˜¬ë°”ë¥¸ ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”.%n", accountName);
 				failCount++;
 				continue;
 			} else if (user == null) {
-				System.out.printf("%s(Àº)´Â Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğ ÀÔ´Ï´Ù.%n", accountName);
+				System.out.printf("%s(ì€)ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.%n", accountName);
 				failCount++;
 				continue;
 			} else if (user != null) {
 				failCount = 0;
 				while (true) {
 					if (failCount >= maxFailCount) {
-						System.out.println("È¸¿ø°¡ÀÔÀ» Ãë¼ÒÇÕ´Ï´Ù.");
+						System.out.println("ë¡œê·¸ì¸ì„ ì·¨ì†Œí•©ë‹ˆë‹¤.");
 						return;
 					}
 
-					System.out.printf("ºñ¹Ğ¹øÈ£ : ");
+					System.out.printf("ë¹„ë°€ë²ˆí˜¸ : ");
 					accountPw = sc.nextLine().trim();
 
 					if (accountPw.length() == 0) {
-						System.out.println("¿Ã¹Ù¸¥ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+						System.out.println("ì˜¬ë°”ë¥¸ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 						failCount++;
 						continue;
 					} else if (accountPw.equals(user.accountPw) == false) {
-						System.out.println("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+						System.out.println("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 						failCount++;
 						continue;
 					}
@@ -113,11 +113,11 @@ public class UserController {
 
 		}
 
-		System.out.printf("·Î±×ÀÎ ¼º°ø! %s´Ô È¯¿µÇÕ´Ï´Ù!%n", accountName);
+		System.out.printf("ë¡œê·¸ì¸ ì„±ê³µ! %síšŒì›ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤!%n", accountName);
 	}
 
 	private void join(String cmd) {
-		System.out.println("== È¸¿ø °¡ÀÔ ==");
+		System.out.println("== íšŒì› ê°€ì… ==");
 		String accountName;
 		String accountPw;
 		String name;
@@ -127,20 +127,20 @@ public class UserController {
 		while (true) {
 
 			if (failCount >= maxFailCount) {
-				System.out.println("È¸¿ø°¡ÀÔÀ» Ãë¼ÒÇÕ´Ï´Ù.");
+				System.out.println("íšŒì›ê°€ì…ì„ ì·¨ì†Œí•©ë‹ˆë‹¤.");
 				return;
 			}
 
-			System.out.printf("»ç¿ëÇÏ½Ç ¾ÆÀÌµğ : ");
+			System.out.printf("ì‚¬ìš©í•˜ì‹¤ ì•„ì´ë”” : ");
 			accountName = sc.nextLine().trim();
 
 			boolean isValidAccNm = userService.isValidAccNm(accountName);
 			if (isValidAccNm == false) {
-				System.out.printf("%s´Â ÀÌ¹Ì »ç¿ëÁßÀÎ ¾ÆÀÌµğ ÀÔ´Ï´Ù.%n", accountName);
+				System.out.printf("%s(ì€)ëŠ” ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.%n", accountName);
 				failCount++;
 				continue;
 			} else if (accountName.length() == 0) {
-				System.out.println("¿Ã¹Ù¸¥ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+				System.out.println("ì˜¬ë°”ë¥¸ ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 				failCount++;
 				continue;
 			}
@@ -150,15 +150,15 @@ public class UserController {
 
 		while (true) {
 			if (failCount >= maxFailCount) {
-				System.out.println("È¸¿ø°¡ÀÔÀ» Ãë¼ÒÇÕ´Ï´Ù.");
+				System.out.println("íšŒì›ê°€ì…ì„ ì·¨ì†Œí•©ë‹ˆë‹¤.");
 				return;
 			}
 
-			System.out.printf("»ç¿ëÇÏ½Ç ºñ¹Ğ¹øÈ£ : ");
+			System.out.printf("ì‚¬ìš©í•˜ì‹¤ ë¹„ë°€ë²ˆí˜¸ : ");
 			accountPw = sc.nextLine().trim();
 
 			if (accountPw.length() == 0) {
-				System.out.println("¿Ã¹Ù¸¥ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+				System.out.println("ì˜¬ë°”ë¥¸ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 				failCount++;
 				continue;
 			}
@@ -168,15 +168,15 @@ public class UserController {
 
 		while (true) {
 			if (failCount >= maxFailCount) {
-				System.out.println("È¸¿ø°¡ÀÔÀ» Ãë¼ÒÇÕ´Ï´Ù.");
+				System.out.println("íšŒì›ê°€ì…ì„ ì·¨ì†Œí•©ë‹ˆë‹¤.");
 				return;
 			}
 
-			System.out.printf("ÀÌ¸§ : ");
+			System.out.printf("ì´ë¦„ : ");
 			name = sc.nextLine().trim();
 
 			if (name.length() == 0) {
-				System.out.println("¿Ã¹Ù¸¥ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.");
+				System.out.println("ì˜¬ë°”ë¥¸ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.");
 				failCount++;
 				continue;
 			}
@@ -185,7 +185,7 @@ public class UserController {
 		}
 
 		int userId = userService.join(accountName, accountPw, name);
-		System.out.printf("%d¹ø È¸¿øÀÌ »ı¼ºµÇ¾ú½À´Ï´Ù.%n", userId);
+		System.out.printf("%dë²ˆ íšŒì›ì´ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.%n", userId);
 	}
 
 }
