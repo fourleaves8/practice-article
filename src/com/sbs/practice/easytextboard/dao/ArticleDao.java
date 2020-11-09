@@ -14,17 +14,22 @@ public class ArticleDao {
 		lastArticleId = 0;
 	}
 
-	public int add(String title, String body) {
+	public int add(int userId, String title, String body) {
 		Article article = new Article();
 		article.articleId = lastArticleId + 1;
 		article.title = title;
 		article.body = body;
+		article.userId = userId;
 		articles.add(article);
 
 		lastArticleId = article.articleId;
 
 		return article.articleId;
 
+	}
+
+	public List<Article> getAllArticles() {
+		return articles;
 	}
 
 }
